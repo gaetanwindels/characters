@@ -9,16 +9,23 @@ $(document).ready(function() {
 	var player = game.getPlayer();
 	var charHolder = game.getCharHolder();
 	
+	Craftory.createColorPicker();
+	
 	
 	Crafty.audio.add("1", "song_name.mp3");
 	//Crafty.audio.play("1", -1);
+	var bla = Crafty.e("bla, Color, 2D, DOM")
+	.attr({x:0, y:0, w: Crafty.viewport.width, h: charHolder._entity._h})
+	.color("White")
+	.css({ borderTop: "2px black solid" })
+	.bind("EnterFrame", function(e) { this.attr({x:-Crafty.viewport.x, y:-Crafty.viewport.y + Crafty.viewport.height - this._h }) });	
 
-	//Crafty.e("Drawer").bind("EnterFrame", function() { game.getWorld().drawScreen(); });
 
 	
 	$(document).keydown(function(e) {
-		if (e.keyCode === 17 || e.keyCode === 32) {
-			console.log(player.disableControls);
+		if (e.keyCode === 16) {
+			charHolder._shifted = true;
+		} else if (e.keyCode === 17 || e.keyCode === 32) {
 			if (player.disableControls) {
 				player.enableControl();
 			} else {
@@ -28,6 +35,12 @@ $(document).ready(function() {
 		} else {
 			charHolder.setChar(e);
 		}
+	});
+	
+	$(document).keyup(function(e) {
+		if (e.keyCode === 16) {
+			charHolder._shifted = false;
+		}		
 	});
 
 	$("#game").mousedown(function(e) {
@@ -50,7 +63,7 @@ $(document).ready(function() {
 		var x = Math.floor((-Crafty.viewport.x + offsetX) / game.getWorld()._w.getTileSize()); 
 		var y = Math.floor((-Crafty.viewport.y + offsetY) / game.getWorld()._w.getTileSize());
 		var type = charHolder.getType();
-		game.getWorld().replace(x, y, new Tile(c, type));
+		game.getWorld().replace(x, y, new Tile(c, type, charHolder.getColor()));
 		game.getWorld().drawScreen();
 	});
 	

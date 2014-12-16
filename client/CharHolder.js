@@ -7,31 +7,38 @@ var CharHolder = function() {
 	this._design[TileType.DECORATION] = "{ }";
 	this._modes = [ TileType.COLLIDE, TileType.DECORATION ];
 	this._char = " ";
-	this._color = "green";
+	this._color = "black";
 	/** the crafty entity created */
 	this._entity = null;
 	/** */
 	this._active = false;
 	this._type = TileType.DECORATION;
+	this._shifted = false;
 };
 
 CharHolder.prototype.init = function() {
-	this._entity = Crafty.e("CharHolder, 2D, DOM, Color, Text, Keyboard")
-	.attr({ x: 0, y: 0, w: 20, h:100 })
+	this._entity = Crafty.e("CharHolder, 2D, DOM, Text, Keyboard")
+	.attr({ x: 0, y: 0, w: 100, h:60 })
 	.text("[ ]")
 	.css({border: "2px black solid"})
+	.textColor(GameInstance.get().getCharHolder().getColor())
 	.textFont({ size: '50px', family: 'Courier' })
-	.textColor(this._color)
-	.color("White")
 	.bind("ViewportScroll", function() {
-		this.attr({ x: -Crafty.viewport.x + (Crafty.viewport.width / 2) - this._w / 2, y: -Crafty.viewport.y + Crafty.viewport.height - this._h / 1.8, w: 100, h: 100 });
+		this.attr({ x: -Crafty.viewport.x + (Crafty.viewport.width / 2) - this._w / 2, y: -Crafty.viewport.y + Crafty.viewport.height - this._h });
 	});
+	this._entity.z = 10;
 };
 
 CharHolder.prototype.toggle = function() {
 	this._active = !this._active;
 	var style = this._active ? "bold" : "";
 	this._entity.textFont({type : style });
+};
+
+CharHolder.prototype.setColor = function(color) {
+	this._color = color;
+	this._entity.textColor(color);
+
 };
 
 CharHolder.prototype.getChar = function() {
@@ -53,7 +60,10 @@ CharHolder.prototype.setChar = function(e) {
 	}
 
 	var c = AuthorizedKeys[e.keyCode] !== undefined ? AuthorizedKeys[e.keyCode] : " ";
-	this._entity.text("{" + c + "}");
+	if (this._shifted) {
+		c = c.toUpperCase();
+	}
+	this._entity.text("[" + c + "]");
 	if (c === this.getChar()) { // same char, changing mode
 		if (this.getType() == TileType.DECORATION) {
 			this._type = TileType.COLLIDE;
