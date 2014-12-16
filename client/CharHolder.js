@@ -16,13 +16,15 @@ var CharHolder = function() {
 };
 
 CharHolder.prototype.init = function() {
-	this._entity = Crafty.e("CharHolder, 2D, DOM, Text, Keyboard")
-	.attr({ x: 0, y: 0, w: 50, h: 50 })
+	this._entity = Crafty.e("CharHolder, 2D, DOM, Color, Text, Keyboard")
+	.attr({ x: 0, y: 0, w: 20, h:100 })
 	.text("[ ]")
+	.css({border: "2px black solid"})
 	.textFont({ size: '50px', family: 'Courier' })
 	.textColor(this._color)
+	.color("White")
 	.bind("ViewportScroll", function() {
-		this.attr({ x: -Crafty.viewport.x + (Crafty.viewport.width / 2) - this._w / 2, y: -Crafty.viewport.y + Crafty.viewport.height - this._h / 2, w: 100, h: 100 });
+		this.attr({ x: -Crafty.viewport.x + (Crafty.viewport.width / 2) - this._w / 2, y: -Crafty.viewport.y + Crafty.viewport.height - this._h / 1.8, w: 100, h: 100 });
 	});
 };
 

@@ -18,7 +18,7 @@ var WorldManager = function(world) {
 	Crafty.e("Tile, 2D, DOM").attr({ x: -10000, y: 10000, w: 0, h: 0 });
 };
 
-WorldManager.init = function(world) {	
+WorldManager.prototype.init = function(world) {	
 
 };
 
@@ -62,43 +62,25 @@ WorldManager.prototype.drawScreen = function() {
     			if (tile.type == TileType.COLLIDE) {
     				this._entities[coordinates].textFont( {type:"bold"} );
     			}
+    		// else, maybe it has been modified
     		} else if (this._entities[coordinates] !== undefined && this._entities[coordinates]._text != text) { // a tile has been changed
     			if (text == "" || text == " ") {
-    				this._entities[coordinates].destroy();
-    				delete this._entities[coordinates];
+    				//this._entities[coordinates].destroy();
+    				//delete this._entities[coordinates];
     			} else {
-        			this._entities[coordinates].text(text); 				
+        			//this._entities[coordinates].text(text);
     			}
     		}	
     	}
     }
 };
 
-/**
- * If the cache needs to be updated
- */
-WorldManager.prototype.updateTile = function(x, y, tile) {
-	tile = this._w.getTile(x, y);
-	if (tile != null && tile !== undefined) {
-	    text = tile.char;
-	} else {
-		text == "";
-	}
-	// creates the entity if not in the cache
-	if (tile !== undefined && tile != null && text != "" && text != " " && (this._entities[coordinates] === undefined)) {
-		type = tile.type == TileType.COLLIDE ? "Tile, Floor" : "Decor";
-		this._entities[coordinates] = Crafty.e(type + ", 2D, Canvas, Text")
-		.attr({ x: x * tileSize, y: y * tileSize, w: tileSize, h: tileSize })
-		.text(text)
-		.textFont({ size: tileSize + 'px', family: 'Courier' });
-	} else if (this._entities[coordinates] !== undefined && this._entities[coordinates]._text != text) { // a tile has been changed
-		if (text == "" || text == " ") {
-			this._entities[coordinates].destroy();
-			delete this._entities[coordinates];
-		} else {
-			this._entities[coordinates].text(text); 				
-		}
-	}
+WorldManager.prototype.replace = function(x, y, tile) {
+	if (this._entities[x + "x" + y] !== undefined) {
+	    this._entities[x + "x" + y].destroy(); // updating cache
+	    delete this._entities[x + "x" + y];
+    }
+	this._w.replace(x, y, tile);
 };
 
 /**
