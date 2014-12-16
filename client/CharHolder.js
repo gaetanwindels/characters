@@ -17,10 +17,9 @@ var CharHolder = function() {
 };
 
 CharHolder.prototype.init = function() {
-	this._entity = Crafty.e("CharHolder, 2D, DOM, Text, Keyboard")
+	this._entity = Crafty.e("CharHolder, 2D, Canvas, Text, Keyboard")
 	.attr({ x: 0, y: 0, w: 100, h:60 })
 	.text("[ ]")
-	.css({border: "2px black solid"})
 	.textColor(GameInstance.get().getCharHolder().getColor())
 	.textFont({ size: '50px', family: 'Courier' })
 	.bind("ViewportScroll", function() {

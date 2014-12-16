@@ -12,10 +12,14 @@ var WorldManager = function(world) {
 	this._entities = {};
 	
 	// anchors
-	Crafty.e("Pull, 2D, DOM").attr({ x: 10000, y: 10000, w: 0, h: 0 });
-	Crafty.e("Tile, 2D, DOM").attr({ x: -10000, y: -10000, w: 0, h: 0 });
-	Crafty.e("Tile, 2D, DOM").attr({ x: 10000, y: -10000, w: 0, h: 0 });
-	Crafty.e("Tile, 2D, DOM").attr({ x: -10000, y: 10000, w: 0, h: 0 });
+	Crafty.e("Anchor, 2D, DOM").attr({ x: 0, y: 0, w: 0, h: 0 }).
+	    bind("EnterFrame", function() { this.attr( {x:GameInstance.get().getPlayer().x + 2000,y:GameInstance.get().getPlayer().y + 2000} )});
+	Crafty.e("Anchor, 2D, DOM").attr({ x: 0, y: 0, w: 0, h: 0 }).
+    bind("EnterFrame", function() { this.attr( {x:GameInstance.get().getPlayer().x - 2000,y:GameInstance.get().getPlayer().y + 4000} )});
+	Crafty.e("Anchor, 2D, DOM").attr({ x: 0, y: 0, w: 0, h: 0 }).
+    bind("EnterFrame", function() { this.attr( {x:GameInstance.get().getPlayer().x + 2000,y:GameInstance.get().getPlayer().y - 4000} )});
+	Crafty.e("Anchor, 2D, DOM").attr({ x: 0, y: 0, w: 0, h: 0 }).
+    bind("EnterFrame", function() { this.attr( {x:GameInstance.get().getPlayer().x - 2000,y:GameInstance.get().getPlayer().y - 4000} )});
 };
 
 WorldManager.prototype.init = function(world) {	
@@ -57,7 +61,7 @@ WorldManager.prototype.drawScreen = function() {
     			.attr({ x: x * tileSize, y: y * tileSize, w: tileSize, h: tileSize })
     			.text(text)
     			.textColor(tile.color)
-    			.textFont({ size: 30 + 'px', family: 'Courier' });
+    			.textFont({ size: Math.floor(tileSize * 1.36) + 'px', family: 'Courier' });
     			
     			if (tile.type == TileType.COLLIDE) {
     				this._entities[coordinates].textFont( {type:"bold"} );

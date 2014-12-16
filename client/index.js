@@ -7,20 +7,23 @@ var _clients = new ClientList(100);
 $(document).ready(function() {
 	var game = GameInstance.get();
 	var player = game.getPlayer();
-	var charHolder = game.getCharHolder();
-	
-	Craftory.createColorPicker();
-	
+	var charHolder = game.getCharHolder();	
 	
 	Crafty.audio.add("1", "song_name.mp3");
-	//Crafty.audio.play("1", -1);
-	var bla = Crafty.e("bla, Color, 2D, DOM")
-	.attr({x:0, y:0, w: Crafty.viewport.width, h: charHolder._entity._h})
+	Crafty.audio.play("1", -1);
+	
+	var bla = Crafty.e("UI, Canvas, Color, 2D")
+	.attr({x:0, y:0, w: Crafty.viewport.width, h: 60})
 	.color("White")
-	.css({ borderTop: "2px black solid" })
-	.bind("EnterFrame", function(e) { this.attr({x:-Crafty.viewport.x, y:-Crafty.viewport.y + Crafty.viewport.height - this._h }) });	
+	.bind("EnterFrame", function(e) { this.z = 8; this.attr({x:-Crafty.viewport.x, y:-Crafty.viewport.y + Crafty.viewport.height - this._h }) });
+	
+	var bla = Crafty.e("UI, Canvas, Color, 2D")
+	.attr({x:0, y:0, w: Crafty.viewport.width, h: 2})
+	.color("Black")
+	.bind("EnterFrame", function(e) { this.z = 11; this.attr({x:-Crafty.viewport.x, y:-Crafty.viewport.y + Crafty.viewport.height - 60 }) });	
 
-
+	Craftory.createColorPicker();
+    //window.document.trigger("Resize");
 	
 	$(document).keydown(function(e) {
 		if (e.keyCode === 16) {
@@ -68,4 +71,6 @@ $(document).ready(function() {
 	});
 	
 	$("#game").fadeIn(800);
+	$("#game").css("margin", "auto");
+	Crafty.viewport.reload();
 });
