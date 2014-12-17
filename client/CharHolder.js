@@ -33,6 +33,7 @@ CharHolder.prototype.toggle = function() {
 	this._active = !this._active;
 	var style = this._active ? "bold" : "";
 	this._entity.textFont({type : style });
+	$("#game").css("border", this._active ? "2px red solid" : "2px black solid");
 };
 
 CharHolder.prototype.setColor = function(color) {

@@ -66,15 +66,7 @@ WorldManager.prototype.drawScreen = function() {
     			if (tile.type == TileType.COLLIDE) {
     				this._entities[coordinates].textFont( {type:"bold"} );
     			}
-    		// else, maybe it has been modified
-    		} else if (this._entities[coordinates] !== undefined && this._entities[coordinates]._text != text) { // a tile has been changed
-    			if (text == "" || text == " ") {
-    				//this._entities[coordinates].destroy();
-    				//delete this._entities[coordinates];
-    			} else {
-        			//this._entities[coordinates].text(text);
-    			}
-    		}	
+    		} 	
     	}
     }
 };

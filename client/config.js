@@ -9,5 +9,11 @@ var Config = {
 		/* The server adress */
 		"SERVER_ADDRESS" : "localhost",
 		/* The server port, 3000 by default */
-		"SERVER_PORT" : 3000
+		"SERVER_PORT" : 3000,
+		
+		
+		/** */
+		"UI_COLOR" : "White",
+		"CHAT_FONT_FAMILY" : "lucida console",
+		"CHAT_FONT_SIZE" : "16px"
 };
