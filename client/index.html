@@ -5,6 +5,11 @@
 </head>
 <body>
 	<style>
+
+body {
+    width: 100%;
+    font-size: 100%;
+}
 #game {
 	border: solid 2px black;
 	display: none;
@@ -29,7 +34,40 @@
 #chat:focus {
     border: 2px black solid;
 }
+
+#connectForm {
+margin:auto;
+}
+
+#connectForm p {
+    font-family: arial;
+    font-size: 1.2em;
+    color: grey;
+    font-weight: bold;   
+}
+
+#welcomeName {
+    height: 50px;
+    width: 200px;
+    font-family: arial;
+    font-size: 1.2em;
+    color: grey;
+    font-weight: bold;
+    margin: auto; 
+}
+
+#welcome {
+width: 100%;
+text-align: center;
+}
 </style>
+
+<div id="welcome">
+    <form id="connectForm" method="get" action="#">
+        <p>Name : <input id="welcomeName" type="text" /></p>
+    </form>
+</div>
+
 
 <form id="chatForm" method="get" action="#">
  <input id="chat" type="text" />

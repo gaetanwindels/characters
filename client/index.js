@@ -3,6 +3,7 @@
 var _clients = new ClientList(100);
 
 $(document).ready(function() {
+	var name;
 	var game = GameInstance.get();
 	var player = game.getPlayer();
 	var charHolder = game.getCharHolder();	
@@ -30,7 +31,7 @@ $(document).ready(function() {
 			chat.toggle();
 			if (!chat._entity.visible) {
 				console.log("hey " + $("#chat").val())
-			    chat.addMessage($("#chat").val());
+			    chat.addMessage($("#chat").val(), name);
 				$("#chat").val("")
 				if (charHolder._entity._textFont.type !== "bold") {
 				    player.enableControl();
@@ -91,12 +92,16 @@ $(document).ready(function() {
 		game.getWorld().drawScreen();
 	});
 	
-	$("#game").fadeIn(800);
-	$("#game").css("margin", "auto");
-	
-	$("#chat").css("left", $("#game").offset().left + 20);
-	$("#chat").css("top", $("#game").offset().top + Crafty.viewport.height - 45);
-	console.log($("#game").offset().left);
-	$("#chat").fadeIn(800);
-	Crafty.viewport.reload();
+	$("#connectForm").submit(function() {
+		$("#welcome").fadeOut(0);
+		name = $("#welcomeName").val();
+		$("#game").fadeIn(800);
+		$("#game").css("margin", "auto");
+		
+		$("#chat").css("left", $("#game").offset().left + 20);
+		$("#chat").css("top", $("#game").offset().top + Crafty.viewport.height - 45);
+		console.log($("#game").offset().left);
+		$("#chat").fadeIn(800);
+		Crafty.viewport.reload();
+	});
 });

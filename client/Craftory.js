@@ -12,7 +12,7 @@ Craftory.createPlayer = function(xPos, yPos, width, height) {
 	.speed({ x:6, y:4})
 	.color('White')
 	.text("&nbsp;&nbsp;&nbsp;&nbsp;__<br>&nbsp;&nbsp;&nbsp;| ''|<br>&nbsp;/[__]\\<br>&nbsp;&nbsp;&nbsp;l&nbsp;&nbsp;&nbsp;l").unselectable()
-	.textFont({ size: '15px', family: 'arial', type: "bold" })
+	.textFont({ size: '1em', family: 'arial', type: "bold" })
 	.bind("NewDirection", function(dir) {
 		if (this.disableControls) {
 			return;
