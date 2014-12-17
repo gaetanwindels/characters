@@ -26,6 +26,7 @@ CharHolder.prototype.init = function() {
 		this.attr({ x: -Crafty.viewport.x + (Crafty.viewport.width / 2) - this._w / 2, y: -Crafty.viewport.y + Crafty.viewport.height - this._h });
 	});
 	this._entity.z = 10;
+	$("#chat").css("width", Crafty.viewport.width / 2.5 + "px");
 };
 
 CharHolder.prototype.toggle = function() {

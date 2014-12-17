@@ -8,41 +8,55 @@ Craftory.createPlayer = function(xPos, yPos, width, height) {
 	var player = Crafty.e("Player, 2D, DOM, Color, Text, Multiway, Collision, Gravity")
 	.gravity("Floor")
 	.attr({ x: xPos, y: yPos, w: width, h: height })
-	.multiway(6, { Z:-90, D:0, Q:-180})
+	.multiway(4, { Z:-90, D:0, Q:-180})
+	.speed({ x:6, y:4})
 	.color('White')
-	.text("&nbsp;&nbsp;&nbsp;&nbsp;__<br>&nbsp;&nbsp;&nbsp;| ''|<br>/(&nbsp;__&nbsp;)\\<br>&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\\").unselectable()
-	.textFont({ size: '18px', family: 'arial' })
-	.onHit("Tile", function(ent) { 
-		for (var i=0; i < ent.length; i++) {
-			var obj = ent[i].obj;
-			if (this._direction.x == 0 && this._direction.y == 0) {
-				this.y = obj.y - this._h;
-			}
-			if (this._direction.x > 0 && obj.intersect(this.x, this.y - this._direction.y, this._w, this._h)) {
-				this.y -= obj._h;
-				if (this.hit("Tile")) {
-					this.y += obj._h;
-					this.x -= Math.abs(obj.x - (this.x + this._w));
-				} else { // smooth transition
-					//this.y += (obj._h - this._speed.y / 2);
-					//this.x -= (this._speed.x / 2);
-				}
-			}
-			if (this._direction.x < 0 && obj.intersect(this.x, this.y - this._direction.y, this._w, this._h)) {
-				this.y -= obj._h;
-				if (this.hit("Tile")) {
-					this.y += obj._h;
-					this.x += Math.abs((obj.x + obj._w) - this.x);
-				} else { // smooth transition
-					//this.y += (obj._h - this._speed.y / 2);
-					//this.x += (this._speed.x / 2);
-				}
-			}
-			if (this._direction.y < 0 && obj.intersect(this.x - this._direction.x, this.y, this._w, this._h)) {
-				this.y += Math.abs((obj.y + obj._h) - this.y);
-			}
+	.text("&nbsp;&nbsp;&nbsp;&nbsp;__<br>&nbsp;&nbsp;&nbsp;| ''|<br>&nbsp;/[__]\\<br>&nbsp;&nbsp;&nbsp;l&nbsp;&nbsp;&nbsp;l").unselectable()
+	.textFont({ size: '15px', family: 'arial', type: "bold" })
+	.bind("NewDirection", function(dir) {
+		if (this.disableControls) {
+			return;
 		}
-	}).bind("NewDirection", function(dir) { this._direction = dir; });
+		if (dir.x > 0 && dir.y < 0) { 
+			this.text("&nbsp;&nbsp;&nbsp;&nbsp;__<br>&nbsp;&nbsp;&nbsp;| ''|/<br>&nbsp;/[__]<br>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;/"); 
+		}
+		if (dir.x < 0 && dir.y < 0) { 
+			this.text("&nbsp;&nbsp;&nbsp;&nbsp;__<br>&nbsp;&nbsp;\\|'' |<br>&nbsp;&nbsp;[__]\\<br>&nbsp;&nbsp;&nbsp;\\&nbsp;&nbsp;&nbsp;\\"); 
+		}
+		if (dir.x > 0 && dir.y == 0) { 
+			this.text("&nbsp;&nbsp;&nbsp;&nbsp;__<br>&nbsp;&nbsp;&nbsp;| ''|<br>&nbsp;/[__]\\<br>&nbsp;&nbsp;&nbsp;l&nbsp;&nbsp;&nbsp;l"); 
+		} 
+		if (dir.x < 0 && dir.y == 0) {
+			this.text("&nbsp;&nbsp;&nbsp;&nbsp;__<br>&nbsp;&nbsp;&nbsp;|'' |<br>&nbsp;/[__]\\<br>&nbsp;&nbsp;&nbsp;l&nbsp;&nbsp;&nbsp;l&nbsp;"); 
+		}; })
+		.onHit("Tile", function(ent) {
+			for (var i=0; i < ent.length; i++) {
+				var obj = ent[i].obj;
+				if (this._direction.x == 0 && this._direction.y == 0) {
+					this.y = obj.y - this._h;
+				}
+				if (this._direction.x > 0 && obj.intersect(this.x, this.y - this._direction.y, this._w, this._h)) {
+					this.y -= obj._h;
+					if (this.hit("Tile")) {
+						this.y += obj._h; // can't go up
+						this.x -= Math.abs(obj.x - (this.x + this._w));
+					} else { // smooth transition
+						//this.y += (obj._h - this._speed.y / 2);
+						//this.x -= (this._speed.x / 2);
+					}
+				}
+				if (this._direction.x < 0 && obj.intersect(this.x, this.y - this._direction.y, this._w, this._h)) {
+					this.y -= obj._h;
+					if (this.hit("Tile")) {
+						this.y += obj._h;
+						this.x += Math.abs((obj.x + obj._w) - this.x);
+					}
+				}
+				if (this._direction.y < 0 && obj.intersect(this.x - this._direction.x, this.y, this._w, this._h)) {
+					this.y += Math.abs((obj.y + obj._h) - this.y);
+				}
+			}
+		}).bind("NewDirection", function(dir) { this._direction = dir; });
 	return player;
 }
 
@@ -53,7 +67,7 @@ Craftory.createColorPicker = function() {
 	var xPos = [x+size, x+size, x+size, x+size*2, x+size*2, x+size*2, x+size*3, x+size*3, x+size*3, x+size*4, x+size*4, x+size*4];
 	var yPos = [y-size, y-size*2, y-size*3, y-size, y-size*2, y-size*3, y-size, y-size*2, y-size*3, y-size, y-size*2, y-size*3];
 	var colors = ["#FF0000", "#0000FF", "#00FF00", "#ff00ff", "black", "grey", "brown", "#ff9933", "yellow", "#0099ff", "#ffccff", "#006600"];
-	
+
 	for (var i = 0; i < xPos.length; i++) {
 		Craftory.createColor(colors[i], xPos[i], yPos[i]);
 	}

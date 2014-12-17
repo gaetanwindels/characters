@@ -8,10 +8,32 @@
 #game {
 	border: solid 2px black;
 	display: none;
+	z-index: 1;
+}
+
+#chat {
+    display: none;
+    position:absolute;
+    height: 40px;
+    width: 500px;
+    top: 760;
+    border: 1px black solid;
+    border-radius: 10px;
+    z-index: 2;
+    padding: 0 15 0 15;
+    font-size: 15px;
+    background-color: "blue";
+    
+}
+
+#chat:focus {
+    border: 2px black solid;
 }
 </style>
 
-
+<form id="chatForm" method="get" action="#">
+ <input id="chat" type="text" />
+</form>
 
 <div id="game">
 </div>
@@ -25,6 +47,7 @@
 	<script type="text/javascript" src="Config.js"></script>
 	<script type="text/javascript" src="CharHolder.js"></script>
 	<script type="text/javascript" src="Game.js"></script>
+	<script type="text/javascript" src="Chat.js"></script>
 	<script type="text/javascript" src="Craftory.js"></script>
 	<script type="text/javascript" src="../common/ClientList.js"></script>
 	<script type="text/javascript" src="../common/World.js"></script>
