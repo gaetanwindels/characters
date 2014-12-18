@@ -5,11 +5,11 @@
 var Craftory = {};
 
 Craftory.createPlayer = function(xPos, yPos, width, height) {
-	var player = Crafty.e("Player, 2D, DOM, Color, Text, Multiway, Collision, Gravity")
+	var player = Crafty.e("Player, 2D, DOM, Color, Text, Twoway, Collision, Gravity")
 	.gravity("Floor")
 	.attr({ x: xPos, y: yPos, w: width, h: height })
-	.multiway(4, { Z:-90, D:0, Q:-180})
-	.speed({ x:6, y:4})
+	.twoway(4, 20)
+	.speed({ x:1, y:4})
 	.color('White')
 	.text("&nbsp;&nbsp;&nbsp;&nbsp;__<br>&nbsp;&nbsp;&nbsp;| ''|<br>&nbsp;/[__]\\<br>&nbsp;&nbsp;&nbsp;l&nbsp;&nbsp;&nbsp;l").unselectable()
 	.textFont({ size: '1em', family: 'arial', type: "bold" })
@@ -28,7 +28,8 @@ Craftory.createPlayer = function(xPos, yPos, width, height) {
 		} 
 		if (dir.x < 0 && dir.y == 0) {
 			this.text("&nbsp;&nbsp;&nbsp;&nbsp;__<br>&nbsp;&nbsp;&nbsp;|'' |<br>&nbsp;/[__]\\<br>&nbsp;&nbsp;&nbsp;l&nbsp;&nbsp;&nbsp;l&nbsp;"); 
-		}; })
+		}; 
+		})
 		.onHit("Tile", function(ent) {
 			for (var i=0; i < ent.length; i++) {
 				var obj = ent[i].obj;

@@ -16,6 +16,7 @@ body {
 h1 {
     font-size: 2em;
     font-family: courier;
+    font-size: 70px;
 }
 
 #game {
@@ -72,10 +73,10 @@ h1 {
 #loading {
 	display: none;
 	height: 50px;
-	width: 200px;
-	font-family: arial;
+	width: 400px;
+	font-family: "lucida console";
 	font-size: 1.2em;
-	color: grey;
+	color: black;
 	font-weight: bold;
 	margin: auto;
 }
@@ -96,7 +97,7 @@ h1 {
 
 	<div id="body">
 		<div id="welcome">
-		<h1>Characters(alpha)</h1>
+		<h1>Characters</h1>
 			<form id="connectForm" method="get" onsubmit="return false;">
 				<p>Name <br /> <input id="welcomeName" type="text" value="Your name" onclick="$(this).val('')"/>
 				<br />
@@ -105,7 +106,7 @@ h1 {
 			</form>
 		</div>
 
-		<div id="loading"><p>Loading...</p></div>
+		<div id="loading"><p>-----------------<br/>|&nbsp;&nbsp;&nbsp;Loading...&nbsp;&nbsp;&nbsp;|<br/>-----------------</p></div>
 
 
 		<form id="chatForm" method="get" onsubmit="return false;">

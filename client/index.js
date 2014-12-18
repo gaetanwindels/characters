@@ -36,6 +36,8 @@ function main(playerName) {
 	var charHolder = game.getCharHolder();
 	var chat = new Chat();
 	var clicked = false;
+	var lastX, lastY;
+	lastX = lastY = 0;
 	
 	//Crafty.audio.add("3", "song_name.mp3");
 	Crafty.audio.add("1", "build_sound.wav");
@@ -62,8 +64,42 @@ function main(playerName) {
 		}		
 	});
 	
+	$("#game").mouseup(function(e) {
+		clicked = false;
+	});
 	/* Event handling */
-	$("#game").mousedown(function(e) {		
+	$("#game").mousedown(function(e) {
+	
+		var offsetX, offsetY;
+		var c = "";
+		// firefox compatibility
+		if(e.offsetX === undefined) {
+			offsetX = e.pageX - $("#game").offset().left;
+			offsetY = e.pageY - $("#game").offset().top;
+		} else {
+			offsetX = e.offsetX;
+			offsetY = e.offsetY;
+		}
+		switch(e.which) {
+		case 1 : 
+			clicked = true;
+			c = charHolder.getChar();
+		break;
+		case 3 : c = " "; break;
+		}
+		var x = Math.floor((-Crafty.viewport.x + offsetX) / game.getWorld()._w.getTileSize()); 
+		var y = Math.floor((-Crafty.viewport.y + offsetY) / game.getWorld()._w.getTileSize());
+		var type = charHolder.getType();
+		game.getWorld().replace(x, y, new Tile(c, type, charHolder.getColor()));
+		game.getWorld().drawScreen();
+		Crafty.audio.play(c === " " ? "2" : "1", 1, 0.4);
+		
+	});
+	
+	$("#game").mousemove(function(e) {	
+		if (!clicked) {
+			return;
+		}
 		var offsetX, offsetY;
 		var c = "";
 		// firefox compatibility
@@ -82,6 +118,13 @@ function main(playerName) {
 		}
 		var x = Math.floor((-Crafty.viewport.x + offsetX) / game.getWorld()._w.getTileSize()); 
 		var y = Math.floor((-Crafty.viewport.y + offsetY) / game.getWorld()._w.getTileSize());
+		
+		if (x == lastX && y == lastY) {
+			return;
+		} else {
+			lastX = x;
+			lastY = y;
+		}
 		var type = charHolder.getType();
 		game.getWorld().replace(x, y, new Tile(c, type, charHolder.getColor()));
 		game.getWorld().drawScreen();
