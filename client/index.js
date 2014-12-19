@@ -24,12 +24,17 @@ function init() {
 	$("#chat").css("top", $("#game").offset().top + Crafty.viewport.height - 45);
 	$("#chat").fadeIn(800);
 	$("#chat").blur();
+	
+	$(window).resize(function() { 
+		$("#chat").css("left", $("#game").offset().left + 20);
+	    $("#chat").css("top", $("#game").offset().top + Crafty.viewport.height - 45);})
 }
 
 /**
  * Entry point
  */
 function main(playerName) {
+	var km = new KeyManager();
 	var name = playerName;
 	var game = GameInstance.get();
 	var player = game.getPlayer();
@@ -38,6 +43,9 @@ function main(playerName) {
 	var clicked = false;
 	var lastX, lastY;
 	lastX = lastY = 0;
+	
+	km.load("FRENCH");
+	km.init();;
 	
 	//Crafty.audio.add("3", "song_name.mp3");
 	Crafty.audio.add("1", "build_sound.wav");
@@ -150,9 +158,7 @@ function main(playerName) {
 			return;
 		}
 		
-		if (e.keyCode === 16) {
-			charHolder._shifted = true;
-		} else if (e.keyCode === 17 || e.keyCode === 32) {
+		if (e.keyCode === 17 || e.keyCode === 32) {
 			if (player.disableControls) {
 				player.enableControl();
 			} else {
@@ -160,7 +166,7 @@ function main(playerName) {
 			}
 			charHolder.toggle();
 		} else {
-			charHolder.setChar(e);
+			charHolder.setChar(km.getChar(e));
 		}
 		Crafty.viewport.reload();
 	});

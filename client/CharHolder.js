@@ -55,15 +55,11 @@ CharHolder.prototype.getColor = function() {
 };
 
 
-CharHolder.prototype.setChar = function(e) {
-	if (!this._active) {
+CharHolder.prototype.setChar = function(c) {
+	if (!this._active || c === undefined || c === null) {
 		return;
 	}
 
-	var c = AuthorizedKeys[e.keyCode] !== undefined ? AuthorizedKeys[e.keyCode] : " ";
-	if (this._shifted) {
-		c = c.toUpperCase();
-	}
 	this._entity.text("[" + c + "]");
 	if (c === this.getChar()) { // same char, changing mode
 		if (this.getType() == TileType.DECORATION) {

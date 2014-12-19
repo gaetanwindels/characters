@@ -10,7 +10,8 @@ var Config = {
 		"SERVER_ADDRESS" : "localhost",
 		/* The server port, 3000 by default */
 		"SERVER_PORT" : 3000,
-		
+		/* QWERTY or AZERTY (french keyboard) */
+		"KEYBOARD_MODE" : "QWERTY",
 		/** */
 		"UI_COLOR" : "White",
 		"CHAT_FONT_FAMILY" : "lucida console",
