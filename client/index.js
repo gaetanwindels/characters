@@ -104,7 +104,8 @@ function main(playerName) {
 		
 	});
 	
-	$("#game").mousemove(function(e) {	
+	$("#game").mousemove(function(e) {
+		return; // only good for debugging purpose
 		if (!clicked) {
 			return;
 		}

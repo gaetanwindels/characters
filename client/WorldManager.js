@@ -61,7 +61,7 @@ WorldManager.prototype.drawScreen = function() {
     			.attr({ x: x * tileSize, y: y * tileSize, w: tileSize, h: tileSize })
     			.text(text)
     			.textColor(tile.color)
-    			.textFont({ size: Math.floor(tileSize * 1.2) + 'px', family: 'Courier' });
+    			.textFont({ lineHeight: Math.floor(tileSize * 1.2) + 'px', size: Math.floor(tileSize * 1.2) + 'px', family: 'Courier' });
     			
     			if (tile.type == TileType.COLLIDE) {
     				this._entities[coordinates].textFont( {type:"bold"} );
