@@ -62,7 +62,7 @@ WorldManager.prototype.drawScreen = function() {
     			.text(text)
     			.textColor(tile.color)
     			.textFont({ lineHeight: Math.floor(tileSize * 1.2) + 'px', size: Math.floor(tileSize * 1.2) + 'px', family: 'Courier' });
-    			
+
     			if (tile.type == TileType.COLLIDE) {
     				this._entities[coordinates].textFont( {type:"bold"} );
     			}

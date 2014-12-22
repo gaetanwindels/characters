@@ -13,7 +13,8 @@ var Config = {
 		/* QWERTY or AZERTY (french keyboard) */
 		"KEYBOARD_MODE" : "QWERTY",
 		/** */
-		"UI_COLOR" : "White",
+		"UI_COLOR" : "#3366ff",
 		"CHAT_FONT_FAMILY" : "lucida console",
-		"CHAT_FONT_SIZE" : "14px"
+		"CHAT_FONT_SIZE" : "14px",
+		"CHAT_FONT_COLOR" : "white"
 };

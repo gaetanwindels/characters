@@ -51,26 +51,19 @@ function main(playerName) {
 	Crafty.audio.add("1", "build_sound.wav");
 	Crafty.audio.add("2", "remove_sound.wav");
 	//Crafty.audio.play("3", -1, 0.5);
+	chat.init();
 	
-	var bla = Crafty.e("UI, Canvas, Color, 2D")
-	.attr({x:0, y:0, w: Crafty.viewport.width, h: 60})
+	Crafty.e("UI, Canvas, Color, 2D")
+	.attr({z: 9, x:0, y:0, w: Crafty.viewport.width, h: 65})
 	.color(Config.UI_COLOR)
-	.bind("EnterFrame", function(e) { this.z = 8; this.attr({x:-Crafty.viewport.x, y:-Crafty.viewport.y + Crafty.viewport.height - this._h }) });
+	.bind("EnterFrame", function(e) { this.z = 8; this.attr({x:-Crafty.viewport.x, y:-Crafty.viewport.y + Crafty.viewport.height - 64 }) });
 	
-	var bla = Crafty.e("UI, Canvas, Color, 2D")
-	.attr({x:0, y:0, w: Crafty.viewport.width, h: 2})
+	Crafty.e("UIBORDER, Canvas, Color, 2D")
+	.attr({z: 10, x:0, y:0, w: Crafty.viewport.width, h: 2})
 	.color("Black")
-	.bind("EnterFrame", function(e) { this.z = 11; this.attr({x:-Crafty.viewport.x, y:-Crafty.viewport.y + Crafty.viewport.height - 60 }) });	
+	.bind("EnterFrame", function(e) { this.z = 11; this.attr({x:-Crafty.viewport.x, y:-Crafty.viewport.y + Crafty.viewport.height - 64 }) });	
 
 	Craftory.createColorPicker();
-	
-	chat.init();		
-	
-	$(document).keyup(function(e) {
-		if (e.keyCode === 16) {
-			charHolder._shifted = false;
-		}		
-	});
 	
 	$("#game").mouseup(function(e) {
 		clicked = false;
@@ -144,7 +137,6 @@ function main(playerName) {
 		if (e.keyCode === 13) {
 			chat.toggle();
 			if (!chat.isActive()) {
-				console.log("hey " + $("#chat").val())
 			    chat.addMessage($("#chat").val(), name);
 				$("#chat").val("")
 				if (charHolder._entity._textFont.type !== "bold") {

@@ -12402,8 +12402,8 @@ Crafty.extend({
          */
         scroll: function (axis, val) {
             this[axis] = val;
-            //Crafty.trigger("ViewportScroll");
-            //Crafty.trigger("InvalidateViewport");
+            Crafty.trigger("ViewportScroll");
+            Crafty.trigger("InvalidateViewport");
         },
 
         rect_object: { _x: 0, _y: 0, _w: 0, _h: 0},
@@ -12495,8 +12495,6 @@ Crafty.extend({
             function change() {
                 Crafty.viewport.scroll('_x', -(this.x + (this.w / 2) - (Crafty.viewport.width / 2) - offx));
                 Crafty.viewport.scroll('_y', -(this.y + (this.h / 2) - (Crafty.viewport.height / 2) - offy));
-                Crafty.trigger("ViewportScroll");
-                Crafty.trigger("InvalidateViewport");
                 Crafty.viewport._clamp();
             }
 
