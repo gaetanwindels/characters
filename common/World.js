@@ -8,7 +8,7 @@ var World = function () {
 	this._NEGATIVES_INDEX = 0;
 	this._POSITIVES_INDEX = 1;
 	/** Tile size */
-	this._TILE_SIZE = 30;
+	this._TILE_SIZE = 26;
 	/** Default tiles per region */
 	this._DEFAULT_REGION_SIZE = 20;
 	/** Tiles per region */
@@ -26,7 +26,7 @@ var World = function () {
 /**
  * Creates an empty world.
  * @param path the string representing the 
- */World.prototype.create = function() {
+ */World.prototype.init = function() {
 	this.createRegion(0, 0);
 	this.createRegion(-1, 0);
 	this.createRegion(0, -1);
